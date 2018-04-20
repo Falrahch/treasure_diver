@@ -1,0 +1,396 @@
+                              1 
+                              2 ;;; gcc for m6809 : Feb 15 2016 21:40:10
+                              3 ;;; 4.3.6 (gcc6809)
+                              4 ;;; ABI version 1
+                              5 ;;; -mint8
+                              6 	.module	rocks.c
+                              7 	.globl _vectors_rock_1t
+                              8 	.area .text
+   0000                       9 _vectors_rock_1t:
+   0000 FF                   10 	.byte	-1
+   0001 14                   11 	.byte	20
+   0002 00                   12 	.byte	0
+   0003 FF                   13 	.byte	-1
+   0004 00                   14 	.byte	0
+   0005 14                   15 	.byte	20
+   0006 FF                   16 	.byte	-1
+   0007 EC                   17 	.byte	-20
+   0008 00                   18 	.byte	0
+   0009 FF                   19 	.byte	-1
+   000A 00                   20 	.byte	0
+   000B EC                   21 	.byte	-20
+   000C 01                   22 	.byte	1
+   000D 00                   23 	.byte	0
+   000E 00                   24 	.byte	0
+                             25 	.globl _shape_rock_1t
+   000F                      26 _shape_rock_1t:
+   000F 00                   27 	.byte	0
+   0010 05                   28 	.byte	5
+   0011 00 00                29 	.word	_vectors_rock_1t
+                             30 	.globl _rock_1t_1
+                             31 	.area .data
+   0000                      32 _rock_1t_1:
+   0000 3F                   33 	.byte	63
+   0001 80                   34 	.byte	-128
+   0002 96                   35 	.byte	-106
+   0003 00 0F                36 	.word	_shape_rock_1t
+                             37 	.globl _rock_1t_2
+   0005                      38 _rock_1t_2:
+   0005 5A                   39 	.byte	90
+   0006 80                   40 	.byte	-128
+   0007 96                   41 	.byte	-106
+   0008 00 0F                42 	.word	_shape_rock_1t
+                             43 	.globl _rock_1t_3
+   000A                      44 _rock_1t_3:
+   000A 5A                   45 	.byte	90
+   000B 9B                   46 	.byte	-101
+   000C 96                   47 	.byte	-106
+   000D 00 0F                48 	.word	_shape_rock_1t
+                             49 	.globl _rock_1t_4
+   000F                      50 _rock_1t_4:
+   000F 3F                   51 	.byte	63
+   0010 9B                   52 	.byte	-101
+   0011 96                   53 	.byte	-106
+   0012 00 0F                54 	.word	_shape_rock_1t
+                             55 	.globl _vectors_rock_2t_h
+                             56 	.area .text
+   0013                      57 _vectors_rock_2t_h:
+   0013 FF                   58 	.byte	-1
+   0014 14                   59 	.byte	20
+   0015 00                   60 	.byte	0
+   0016 FF                   61 	.byte	-1
+   0017 00                   62 	.byte	0
+   0018 28                   63 	.byte	40
+   0019 FF                   64 	.byte	-1
+   001A EC                   65 	.byte	-20
+   001B 00                   66 	.byte	0
+   001C FF                   67 	.byte	-1
+   001D 00                   68 	.byte	0
+   001E D8                   69 	.byte	-40
+   001F 00                   70 	.byte	0
+   0020 00                   71 	.byte	0
+   0021 14                   72 	.byte	20
+   0022 FF                   73 	.byte	-1
+   0023 14                   74 	.byte	20
+   0024 00                   75 	.byte	0
+   0025 01                   76 	.byte	1
+   0026 00                   77 	.byte	0
+   0027 00                   78 	.byte	0
+                             79 	.globl _shape_rock_2t_h
+   0028                      80 _shape_rock_2t_h:
+   0028 00                   81 	.byte	0
+   0029 07                   82 	.byte	7
+   002A 00 13                83 	.word	_vectors_rock_2t_h
+                             84 	.globl _rock_2t_h
+                             85 	.area .data
+   0014                      86 _rock_2t_h:
+   0014 BA                   87 	.byte	-70
+   0015 80                   88 	.byte	-128
+   0016 96                   89 	.byte	-106
+   0017 00 28                90 	.word	_shape_rock_2t_h
+                             91 	.globl _vectors_rock_3t_h
+                             92 	.area .text
+   002C                      93 _vectors_rock_3t_h:
+   002C FF                   94 	.byte	-1
+   002D 14                   95 	.byte	20
+   002E 00                   96 	.byte	0
+   002F FF                   97 	.byte	-1
+   0030 00                   98 	.byte	0
+   0031 3C                   99 	.byte	60
+   0032 FF                  100 	.byte	-1
+   0033 EC                  101 	.byte	-20
+   0034 00                  102 	.byte	0
+   0035 FF                  103 	.byte	-1
+   0036 00                  104 	.byte	0
+   0037 C4                  105 	.byte	-60
+   0038 00                  106 	.byte	0
+   0039 00                  107 	.byte	0
+   003A 14                  108 	.byte	20
+   003B FF                  109 	.byte	-1
+   003C 14                  110 	.byte	20
+   003D 00                  111 	.byte	0
+   003E 00                  112 	.byte	0
+   003F 00                  113 	.byte	0
+   0040 14                  114 	.byte	20
+   0041 FF                  115 	.byte	-1
+   0042 EC                  116 	.byte	-20
+   0043 00                  117 	.byte	0
+   0044 01                  118 	.byte	1
+   0045 00                  119 	.byte	0
+   0046 00                  120 	.byte	0
+                            121 	.globl _shape_rock_3t_h
+   0047                     122 _shape_rock_3t_h:
+   0047 00                  123 	.byte	0
+   0048 09                  124 	.byte	9
+   0049 00 2C               125 	.word	_vectors_rock_3t_h
+                            126 	.globl _rock_3t_h
+                            127 	.area .data
+   0019                     128 _rock_3t_h:
+   0019 00                  129 	.byte	0
+   001A 7F                  130 	.byte	127
+   001B 96                  131 	.byte	-106
+   001C 00 47               132 	.word	_shape_rock_3t_h
+                            133 	.globl _vectors_rock_3t_c
+                            134 	.area .text
+   004B                     135 _vectors_rock_3t_c:
+   004B FF                  136 	.byte	-1
+   004C 14                  137 	.byte	20
+   004D 00                  138 	.byte	0
+   004E FF                  139 	.byte	-1
+   004F 00                  140 	.byte	0
+   0050 28                  141 	.byte	40
+   0051 FF                  142 	.byte	-1
+   0052 14                  143 	.byte	20
+   0053 00                  144 	.byte	0
+   0054 FF                  145 	.byte	-1
+   0055 00                  146 	.byte	0
+   0056 EC                  147 	.byte	-20
+   0057 FF                  148 	.byte	-1
+   0058 D8                  149 	.byte	-40
+   0059 00                  150 	.byte	0
+   005A 00                  151 	.byte	0
+   005B 14                  152 	.byte	20
+   005C 14                  153 	.byte	20
+   005D FF                  154 	.byte	-1
+   005E EC                  155 	.byte	-20
+   005F 00                  156 	.byte	0
+   0060 FF                  157 	.byte	-1
+   0061 00                  158 	.byte	0
+   0062 D8                  159 	.byte	-40
+   0063 01                  160 	.byte	1
+   0064 00                  161 	.byte	0
+   0065 00                  162 	.byte	0
+                            163 	.globl _shape_rock_3t_c
+   0066                     164 _shape_rock_3t_c:
+   0066 00                  165 	.byte	0
+   0067 09                  166 	.byte	9
+   0068 00 4B               167 	.word	_vectors_rock_3t_c
+                            168 	.globl _rock_3t_c
+                            169 	.area .data
+   001E                     170 _rock_3t_c:
+   001E 00                  171 	.byte	0
+   001F 0C                  172 	.byte	12
+   0020 96                  173 	.byte	-106
+   0021 00 66               174 	.word	_shape_rock_3t_c
+                            175 	.globl _vectors_rock4t_s
+                            176 	.area .text
+   006A                     177 _vectors_rock4t_s:
+   006A FF                  178 	.byte	-1
+   006B 28                  179 	.byte	40
+   006C 00                  180 	.byte	0
+   006D FF                  181 	.byte	-1
+   006E 00                  182 	.byte	0
+   006F 28                  183 	.byte	40
+   0070 FF                  184 	.byte	-1
+   0071 D8                  185 	.byte	-40
+   0072 00                  186 	.byte	0
+   0073 FF                  187 	.byte	-1
+   0074 00                  188 	.byte	0
+   0075 D8                  189 	.byte	-40
+   0076 00                  190 	.byte	0
+   0077 14                  191 	.byte	20
+   0078 00                  192 	.byte	0
+   0079 FF                  193 	.byte	-1
+   007A 00                  194 	.byte	0
+   007B 28                  195 	.byte	40
+   007C 00                  196 	.byte	0
+   007D 14                  197 	.byte	20
+   007E EC                  198 	.byte	-20
+   007F FF                  199 	.byte	-1
+   0080 D8                  200 	.byte	-40
+   0081 00                  201 	.byte	0
+   0082 01                  202 	.byte	1
+   0083 00                  203 	.byte	0
+   0084 00                  204 	.byte	0
+                            205 	.globl _shape_rock4t_s
+   0085                     206 _shape_rock4t_s:
+   0085 00                  207 	.byte	0
+   0086 09                  208 	.byte	9
+   0087 00 6A               209 	.word	_vectors_rock4t_s
+                            210 	.globl _rock4t_s
+                            211 	.area .data
+   0023                     212 _rock4t_s:
+   0023 46                  213 	.byte	70
+   0024 80                  214 	.byte	-128
+   0025 96                  215 	.byte	-106
+   0026 00 85               216 	.word	_shape_rock4t_s
+                            217 	.globl _vectors_rock_4t_L
+                            218 	.area .text
+   0089                     219 _vectors_rock_4t_L:
+   0089 FF                  220 	.byte	-1
+   008A 14                  221 	.byte	20
+   008B 00                  222 	.byte	0
+   008C FF                  223 	.byte	-1
+   008D 00                  224 	.byte	0
+   008E 14                  225 	.byte	20
+   008F FF                  226 	.byte	-1
+   0090 28                  227 	.byte	40
+   0091 00                  228 	.byte	0
+   0092 FF                  229 	.byte	-1
+   0093 00                  230 	.byte	0
+   0094 14                  231 	.byte	20
+   0095 FF                  232 	.byte	-1
+   0096 C4                  233 	.byte	-60
+   0097 00                  234 	.byte	0
+   0098 FF                  235 	.byte	-1
+   0099 00                  236 	.byte	0
+   009A D8                  237 	.byte	-40
+   009B 00                  238 	.byte	0
+   009C 00                  239 	.byte	0
+   009D 14                  240 	.byte	20
+   009E FF                  241 	.byte	-1
+   009F 14                  242 	.byte	20
+   00A0 00                  243 	.byte	0
+   00A1 FF                  244 	.byte	-1
+   00A2 00                  245 	.byte	0
+   00A3 14                  246 	.byte	20
+   00A4 00                  247 	.byte	0
+   00A5 14                  248 	.byte	20
+   00A6 00                  249 	.byte	0
+   00A7 FF                  250 	.byte	-1
+   00A8 00                  251 	.byte	0
+   00A9 EC                  252 	.byte	-20
+   00AA 01                  253 	.byte	1
+   00AB 00                  254 	.byte	0
+   00AC 00                  255 	.byte	0
+                            256 	.globl _shape_rock_4t_L
+   00AD                     257 _shape_rock_4t_L:
+   00AD 00                  258 	.byte	0
+   00AE 0C                  259 	.byte	12
+   00AF 00 89               260 	.word	_vectors_rock_4t_L
+                            261 	.globl _rock_4t_L
+                            262 	.area .data
+   0028                     263 _rock_4t_L:
+   0028 00                  264 	.byte	0
+   0029 00                  265 	.byte	0
+   002A 96                  266 	.byte	-106
+   002B 00 AD               267 	.word	_shape_rock_4t_L
+                            268 	.globl _vectors_rock_5t
+                            269 	.area .text
+   00B1                     270 _vectors_rock_5t:
+   00B1 FF                  271 	.byte	-1
+   00B2 00                  272 	.byte	0
+   00B3 28                  273 	.byte	40
+   00B4 FF                  274 	.byte	-1
+   00B5 28                  275 	.byte	40
+   00B6 00                  276 	.byte	0
+   00B7 FF                  277 	.byte	-1
+   00B8 00                  278 	.byte	0
+   00B9 C4                  279 	.byte	-60
+   00BA FF                  280 	.byte	-1
+   00BB EC                  281 	.byte	-20
+   00BC 00                  282 	.byte	0
+   00BD FF                  283 	.byte	-1
+   00BE 00                  284 	.byte	0
+   00BF 3C                  285 	.byte	60
+   00C0 00                  286 	.byte	0
+   00C1 14                  287 	.byte	20
+   00C2 EC                  288 	.byte	-20
+   00C3 FF                  289 	.byte	-1
+   00C4 D8                  290 	.byte	-40
+   00C5 00                  291 	.byte	0
+   00C6 00                  292 	.byte	0
+   00C7 00                  293 	.byte	0
+   00C8 EC                  294 	.byte	-20
+   00C9 FF                  295 	.byte	-1
+   00CA 28                  296 	.byte	40
+   00CB 00                  297 	.byte	0
+   00CC 01                  298 	.byte	1
+   00CD 00                  299 	.byte	0
+   00CE 00                  300 	.byte	0
+                            301 	.globl _shape_rock_5t
+   00CF                     302 _shape_rock_5t:
+   00CF 00                  303 	.byte	0
+   00D0 0A                  304 	.byte	10
+   00D1 00 B1               305 	.word	_vectors_rock_5t
+                            306 	.globl _rock_5t
+                            307 	.area .data
+   002D                     308 _rock_5t:
+   002D E2                  309 	.byte	-30
+   002E 32                  310 	.byte	50
+   002F 96                  311 	.byte	-106
+   0030 00 CF               312 	.word	_shape_rock_5t
+                            313 	.globl _rocks
+                            314 	.area .text
+   00D3                     315 _rocks:
+   00D3 00 00               316 	.word	_rock_1t_1
+   00D5 00 05               317 	.word	_rock_1t_2
+   00D7 00 0A               318 	.word	_rock_1t_3
+   00D9 00 0F               319 	.word	_rock_1t_4
+   00DB 00 14               320 	.word	_rock_2t_h
+   00DD 00 2D               321 	.word	_rock_5t
+                            322 	.globl _move_rocks
+   00DF                     323 _move_rocks:
+   00DF 32 7F         [ 5]  324 	leas	-1,s
+   00E1 6F E4         [ 6]  325 	clr	,s
+   00E3 20 02         [ 3]  326 	bra	L2
+   00E5                     327 L3:
+   00E5 6C E4         [ 6]  328 	inc	,s
+   00E7                     329 L2:
+   00E7 BD 00 F1      [ 8]  330 	jsr	_get_num_option
+   00EA E1 E4         [ 4]  331 	cmpb	,s	;cmpqi:
+   00EC 22 F7         [ 3]  332 	bhi	L3
+   00EE 32 61         [ 5]  333 	leas	1,s
+   00F0 39            [ 5]  334 	rts
+   00F1                     335 _get_num_option:
+   00F1 F6 00 00      [ 5]  336 	ldb	_Vec_Num_Game
+   00F4 39            [ 5]  337 	rts
+                            338 	.globl _draw_rocks
+   00F5                     339 _draw_rocks:
+   00F5 34 40         [ 6]  340 	pshs	u
+   00F7 32 7F         [ 5]  341 	leas	-1,s
+   00F9 6F E4         [ 6]  342 	clr	,s
+   00FB 20 11         [ 3]  343 	bra	L8
+   00FD                     344 L9:
+   00FD E6 E4         [ 4]  345 	ldb	,s
+   00FF 4F            [ 2]  346 	clra		;zero_extendqihi: R:b -> R:d
+   0100 58            [ 2]  347 	aslb
+   0101 49            [ 2]  348 	rola
+   0102 CE 00 D3      [ 3]  349 	ldu	#_rocks
+   0105 30 CB         [ 8]  350 	leax	d,u
+   0107 AE 84         [ 5]  351 	ldx	,x
+   0109 BD 00 00      [ 8]  352 	jsr	_draw_sprite
+   010C 6C E4         [ 6]  353 	inc	,s
+   010E                     354 L8:
+   010E E6 E4         [ 4]  355 	ldb	,s
+   0110 C1 05         [ 2]  356 	cmpb	#5	;cmpqi:
+   0112 23 E9         [ 3]  357 	bls	L9
+   0114 32 61         [ 5]  358 	leas	1,s
+   0116 35 C0         [ 7]  359 	puls	u,pc
+ASxxxx Assembler V05.00  (Motorola 6809), page 1.
+Hexidecimal [16-Bits]
+
+Symbol Table
+
+    .__.$$$.       =   2710 L   |     .__.ABS.       =   0000 G
+    .__.CPU.       =   0000 L   |     .__.H$L.       =   0001 L
+  2 L2                 00E7 R   |   2 L3                 00E5 R
+  2 L8                 010E R   |   2 L9                 00FD R
+    _Vec_Num_Game      **** GX  |   2 _draw_rocks        00F5 GR
+    _draw_sprite       **** GX  |   2 _get_num_optio     00F1 R
+  2 _move_rocks        00DF GR  |   3 _rock4t_s          0023 GR
+  3 _rock_1t_1         0000 GR  |   3 _rock_1t_2         0005 GR
+  3 _rock_1t_3         000A GR  |   3 _rock_1t_4         000F GR
+  3 _rock_2t_h         0014 GR  |   3 _rock_3t_c         001E GR
+  3 _rock_3t_h         0019 GR  |   3 _rock_4t_L         0028 GR
+  3 _rock_5t           002D GR  |   2 _rocks             00D3 GR
+  2 _shape_rock4t_     0085 GR  |   2 _shape_rock_1t     000F GR
+  2 _shape_rock_2t     0028 GR  |   2 _shape_rock_3t     0066 GR
+  2 _shape_rock_3t     0047 GR  |   2 _shape_rock_4t     00AD GR
+  2 _shape_rock_5t     00CF GR  |   2 _vectors_rock4     006A GR
+  2 _vectors_rock_     0000 GR  |   2 _vectors_rock_     0013 GR
+  2 _vectors_rock_     004B GR  |   2 _vectors_rock_     002C GR
+  2 _vectors_rock_     0089 GR  |   2 _vectors_rock_     00B1 GR
+
+ASxxxx Assembler V05.00  (Motorola 6809), page 2.
+Hexidecimal [16-Bits]
+
+Area Table
+
+[_CSEG]
+   0 _CODE            size    0   flags C080
+   2 .text            size  118   flags  100
+   3 .data            size   32   flags  100
+[_DSEG]
+   1 _DATA            size    0   flags C0C0
+

@@ -1,0 +1,241 @@
+                              1 
+                              2 ;;; gcc for m6809 : Feb 15 2016 21:40:10
+                              3 ;;; 4.3.6 (gcc6809)
+                              4 ;;; ABI version 1
+                              5 ;;; -mint8
+                              6 	.module	ether.c
+                              7 	.globl _position
+                              8 	.area .data
+   0000                       9 _position:
+   0000 01                   10 	.byte	1
+                             11 	.globl _frame_cnt
+   0001                      12 _frame_cnt:
+   0001 00                   13 	.byte	0	;skip space
+                             14 	.globl _cycle_cnt
+   0002                      15 _cycle_cnt:
+   0002 00                   16 	.byte	0	;skip space
+                             17 	.globl _vectors_ether
+                             18 	.area .text
+   0000                      19 _vectors_ether:
+   0000 06                   20 	.byte	6
+   0001 03                   21 	.byte	3
+   0002 06                   22 	.byte	6
+   0003 FD                   23 	.byte	-3
+   0004 FA                   24 	.byte	-6
+   0005 FD                   25 	.byte	-3
+   0006 FA                   26 	.byte	-6
+   0007 03                   27 	.byte	3
+                             28 	.globl _shape_ether
+   0008                      29 _shape_ether:
+   0008 01                   30 	.byte	1
+   0009 04                   31 	.byte	4
+   000A 00 00                32 	.word	_vectors_ether
+                             33 	.globl _ether_1
+                             34 	.area .data
+   0003                      35 _ether_1:
+   0003 0A                   36 	.byte	10
+   0004 92                   37 	.byte	-110
+   0005 96                   38 	.byte	-106
+   0006 00 08                39 	.word	_shape_ether
+                             40 	.globl _ether_2
+   0008                      41 _ether_2:
+   0008 14                   42 	.byte	20
+   0009 A6                   43 	.byte	-90
+   000A 96                   44 	.byte	-106
+   000B 00 08                45 	.word	_shape_ether
+                             46 	.globl _ether_3
+   000D                      47 _ether_3:
+   000D 0A                   48 	.byte	10
+   000E BA                   49 	.byte	-70
+   000F 96                   50 	.byte	-106
+   0010 00 08                51 	.word	_shape_ether
+                             52 	.globl _ether_4
+   0012                      53 _ether_4:
+   0012 14                   54 	.byte	20
+   0013 CE                   55 	.byte	-50
+   0014 96                   56 	.byte	-106
+   0015 00 08                57 	.word	_shape_ether
+                             58 	.globl _ether
+                             59 	.area .text
+   000C                      60 _ether:
+   000C 00 03                61 	.word	_ether_1
+   000E 00 08                62 	.word	_ether_2
+   0010 00 0D                63 	.word	_ether_3
+   0012 00 12                64 	.word	_ether_4
+                             65 	.globl _animate_ether
+   0014                      66 _animate_ether:
+   0014 34 60         [ 7]   67 	pshs	y,u
+   0016 32 7F         [ 5]   68 	leas	-1,s
+   0018 F6 00 02      [ 5]   69 	ldb	_cycle_cnt
+   001B C1 0A         [ 2]   70 	cmpb	#10	;cmpqi:
+   001D 10 26 00 82   [ 6]   71 	lbne	L2
+   0021 F6 00 00      [ 5]   72 	ldb	_position
+                             73 	; tstb	; optimization 6
+   0024 27 3D         [ 3]   74 	beq	L3
+   0026 F6 00 01      [ 5]   75 	ldb	_frame_cnt
+   0029 5C            [ 2]   76 	incb
+   002A F7 00 01      [ 5]   77 	stb	_frame_cnt
+   002D 6F E4         [ 6]   78 	clr	,s
+   002F 20 20         [ 3]   79 	bra	L4
+   0031                      80 L5:
+   0031 E6 E4         [ 4]   81 	ldb	,s
+   0033 4F            [ 2]   82 	clra		;zero_extendqihi: R:b -> R:d
+   0034 58            [ 2]   83 	aslb
+   0035 49            [ 2]   84 	rola
+   0036 CE 00 0C      [ 3]   85 	ldu	#_ether
+   0039 30 CB         [ 8]   86 	leax	d,u
+   003B 10 AE 84      [ 6]   87 	ldy	,x
+   003E E6 E4         [ 4]   88 	ldb	,s
+   0040 4F            [ 2]   89 	clra		;zero_extendqihi: R:b -> R:d
+   0041 58            [ 2]   90 	aslb
+   0042 49            [ 2]   91 	rola
+   0043 CE 00 0C      [ 3]   92 	ldu	#_ether
+   0046 30 CB         [ 8]   93 	leax	d,u
+   0048 AE 84         [ 5]   94 	ldx	,x
+   004A E6 84         [ 4]   95 	ldb	,x
+   004C 5C            [ 2]   96 	incb
+   004D E7 A4         [ 4]   97 	stb	,y
+   004F 6C E4         [ 6]   98 	inc	,s
+   0051                      99 L4:
+   0051 E6 E4         [ 4]  100 	ldb	,s
+   0053 C1 03         [ 2]  101 	cmpb	#3	;cmpqi:
+   0055 23 DA         [ 3]  102 	bls	L5
+   0057 F6 00 01      [ 5]  103 	ldb	_frame_cnt
+   005A C1 05         [ 2]  104 	cmpb	#5	;cmpqi:
+   005C 26 40         [ 3]  105 	bne	L7
+   005E 7F 00 00      [ 7]  106 	clr	_position
+   0061 20 3B         [ 3]  107 	bra	L7
+   0063                     108 L3:
+   0063 F6 00 01      [ 5]  109 	ldb	_frame_cnt
+   0066 5A            [ 2]  110 	decb
+   0067 F7 00 01      [ 5]  111 	stb	_frame_cnt
+   006A 6F E4         [ 6]  112 	clr	,s
+   006C 20 20         [ 3]  113 	bra	L8
+   006E                     114 L9:
+   006E E6 E4         [ 4]  115 	ldb	,s
+   0070 4F            [ 2]  116 	clra		;zero_extendqihi: R:b -> R:d
+   0071 58            [ 2]  117 	aslb
+   0072 49            [ 2]  118 	rola
+   0073 CE 00 0C      [ 3]  119 	ldu	#_ether
+   0076 30 CB         [ 8]  120 	leax	d,u
+   0078 10 AE 84      [ 6]  121 	ldy	,x
+   007B E6 E4         [ 4]  122 	ldb	,s
+   007D 4F            [ 2]  123 	clra		;zero_extendqihi: R:b -> R:d
+   007E 58            [ 2]  124 	aslb
+   007F 49            [ 2]  125 	rola
+   0080 CE 00 0C      [ 3]  126 	ldu	#_ether
+   0083 30 CB         [ 8]  127 	leax	d,u
+   0085 AE 84         [ 5]  128 	ldx	,x
+   0087 E6 84         [ 4]  129 	ldb	,x
+   0089 5A            [ 2]  130 	decb
+   008A E7 A4         [ 4]  131 	stb	,y
+   008C 6C E4         [ 6]  132 	inc	,s
+   008E                     133 L8:
+   008E E6 E4         [ 4]  134 	ldb	,s
+   0090 C1 03         [ 2]  135 	cmpb	#3	;cmpqi:
+   0092 23 DA         [ 3]  136 	bls	L9
+   0094 F6 00 01      [ 5]  137 	ldb	_frame_cnt
+                            138 	; tstb	; optimization 6
+   0097 26 05         [ 3]  139 	bne	L7
+   0099 C6 01         [ 2]  140 	ldb	#1
+   009B F7 00 00      [ 5]  141 	stb	_position
+   009E                     142 L7:
+   009E 7F 00 02      [ 7]  143 	clr	_cycle_cnt
+   00A1 20 07         [ 3]  144 	bra	L11
+   00A3                     145 L2:
+   00A3 F6 00 02      [ 5]  146 	ldb	_cycle_cnt
+   00A6 5C            [ 2]  147 	incb
+   00A7 F7 00 02      [ 5]  148 	stb	_cycle_cnt
+   00AA                     149 L11:
+   00AA 32 61         [ 5]  150 	leas	1,s
+   00AC 35 E0         [ 8]  151 	puls	y,u,pc
+                            152 	.globl _draw_ether
+   00AE                     153 _draw_ether:
+   00AE 34 40         [ 6]  154 	pshs	u
+   00B0 32 7F         [ 5]  155 	leas	-1,s
+   00B2 6F E4         [ 6]  156 	clr	,s
+   00B4 20 23         [ 3]  157 	bra	L13
+   00B6                     158 L15:
+   00B6 E6 E4         [ 4]  159 	ldb	,s
+   00B8 4F            [ 2]  160 	clra		;zero_extendqihi: R:b -> R:d
+   00B9 58            [ 2]  161 	aslb
+   00BA 49            [ 2]  162 	rola
+   00BB CE 00 0C      [ 3]  163 	ldu	#_ether
+   00BE 30 CB         [ 8]  164 	leax	d,u
+   00C0 AE 84         [ 5]  165 	ldx	,x
+   00C2 E6 02         [ 5]  166 	ldb	2,x
+   00C4 C1 96         [ 2]  167 	cmpb	#-106	;cmpqi:
+   00C6 26 0F         [ 3]  168 	bne	L14
+   00C8 E6 E4         [ 4]  169 	ldb	,s
+   00CA 4F            [ 2]  170 	clra		;zero_extendqihi: R:b -> R:d
+   00CB 58            [ 2]  171 	aslb
+   00CC 49            [ 2]  172 	rola
+   00CD CE 00 0C      [ 3]  173 	ldu	#_ether
+   00D0 30 CB         [ 8]  174 	leax	d,u
+   00D2 AE 84         [ 5]  175 	ldx	,x
+   00D4 BD 00 00      [ 8]  176 	jsr	_draw_sprite
+   00D7                     177 L14:
+   00D7 6C E4         [ 6]  178 	inc	,s
+   00D9                     179 L13:
+   00D9 E6 E4         [ 4]  180 	ldb	,s
+   00DB C1 03         [ 2]  181 	cmpb	#3	;cmpqi:
+   00DD 23 D7         [ 3]  182 	bls	L15
+   00DF 32 61         [ 5]  183 	leas	1,s
+   00E1 35 C0         [ 7]  184 	puls	u,pc
+                            185 	.globl _reset_ether
+   00E3                     186 _reset_ether:
+   00E3 34 40         [ 6]  187 	pshs	u
+   00E5 32 7F         [ 5]  188 	leas	-1,s
+   00E7 6F E4         [ 6]  189 	clr	,s
+   00E9 20 12         [ 3]  190 	bra	L18
+   00EB                     191 L19:
+   00EB E6 E4         [ 4]  192 	ldb	,s
+   00ED 4F            [ 2]  193 	clra		;zero_extendqihi: R:b -> R:d
+   00EE 58            [ 2]  194 	aslb
+   00EF 49            [ 2]  195 	rola
+   00F0 CE 00 0C      [ 3]  196 	ldu	#_ether
+   00F3 30 CB         [ 8]  197 	leax	d,u
+   00F5 AE 84         [ 5]  198 	ldx	,x
+   00F7 C6 96         [ 2]  199 	ldb	#-106
+   00F9 E7 02         [ 5]  200 	stb	2,x
+   00FB 6C E4         [ 6]  201 	inc	,s
+   00FD                     202 L18:
+   00FD E6 E4         [ 4]  203 	ldb	,s
+   00FF C1 03         [ 2]  204 	cmpb	#3	;cmpqi:
+   0101 23 E8         [ 3]  205 	bls	L19
+   0103 32 61         [ 5]  206 	leas	1,s
+   0105 35 C0         [ 7]  207 	puls	u,pc
+ASxxxx Assembler V05.00  (Motorola 6809), page 1.
+Hexidecimal [16-Bits]
+
+Symbol Table
+
+    .__.$$$.       =   2710 L   |     .__.ABS.       =   0000 G
+    .__.CPU.       =   0000 L   |     .__.H$L.       =   0001 L
+  3 L11                00AA R   |   3 L13                00D9 R
+  3 L14                00D7 R   |   3 L15                00B6 R
+  3 L18                00FD R   |   3 L19                00EB R
+  3 L2                 00A3 R   |   3 L3                 0063 R
+  3 L4                 0051 R   |   3 L5                 0031 R
+  3 L7                 009E R   |   3 L8                 008E R
+  3 L9                 006E R   |   3 _animate_ether     0014 GR
+  2 _cycle_cnt         0002 GR  |   3 _draw_ether        00AE GR
+    _draw_sprite       **** GX  |   3 _ether             000C GR
+  2 _ether_1           0003 GR  |   2 _ether_2           0008 GR
+  2 _ether_3           000D GR  |   2 _ether_4           0012 GR
+  2 _frame_cnt         0001 GR  |   2 _position          0000 GR
+  3 _reset_ether       00E3 GR  |   3 _shape_ether       0008 GR
+  3 _vectors_ether     0000 GR
+
+ASxxxx Assembler V05.00  (Motorola 6809), page 2.
+Hexidecimal [16-Bits]
+
+Area Table
+
+[_CSEG]
+   0 _CODE            size    0   flags C080
+   2 .data            size   17   flags  100
+   3 .text            size  107   flags  100
+[_DSEG]
+   1 _DATA            size    0   flags C0C0
+

@@ -1,0 +1,162 @@
+                              1 
+                              2 ;;; gcc for m6809 : Feb 15 2016 21:40:10
+                              3 ;;; 4.3.6 (gcc6809)
+                              4 ;;; ABI version 1
+                              5 ;;; -mint8
+                              6 	.module	game.c
+                              7 	.area .text
+                              8 	.globl _game_options
+   0000                       9 _game_options:
+   0000 C6 03         [ 2]   10 	ldb	#3
+   0002 E7 E2         [ 6]   11 	stb	,-s
+   0004 C6 01         [ 2]   12 	ldb	#1
+   0006 BD 00 0C      [ 8]   13 	jsr	_game_menu
+   0009 32 61         [ 5]   14 	leas	1,s
+   000B 39            [ 5]   15 	rts
+   000C                      16 _game_menu:
+   000C 32 7D         [ 5]   17 	leas	-3,s
+   000E E7 E4         [ 4]   18 	stb	,s
+                             19 	; ldb	,s	; optimization 5
+   0010 E7 62         [ 5]   20 	stb	2,s
+   0012 E6 65         [ 5]   21 	ldb	5,s
+   0014 E7 61         [ 5]   22 	stb	1,s
+   0016 E6 62         [ 5]   23 	ldb	2,s
+   0018 E7 E2         [ 6]   24 	stb	,-s
+   001A E6 62         [ 5]   25 	ldb	2,s
+   001C BD 00 00      [ 8]   26 	jsr	__Select_Game
+   001F 32 61         [ 5]   27 	leas	1,s
+   0021 32 63         [ 5]   28 	leas	3,s
+   0023 39            [ 5]   29 	rts
+   0024                      30 LC0:
+   0024 47 45 54 20 52 45    31 	.ascii "GET READY\0"
+        41 44 59 00
+                             32 	.globl _game_init
+   002E                      33 _game_init:
+   002E 32 7F         [ 5]   34 	leas	-1,s
+   0030 BD 00 6D      [ 8]   35 	jsr	_enable_controller_1_x
+   0033 BD 00 67      [ 8]   36 	jsr	_enable_controller_1_y
+   0036 BD 00 63      [ 8]   37 	jsr	_disable_controller_2_x
+   0039 BD 00 5F      [ 8]   38 	jsr	_disable_controller_2_y
+   003C BD 00 00      [ 8]   39 	jsr	_init_player
+   003F C6 4B         [ 2]   40 	ldb	#75
+   0041 E7 E4         [ 4]   41 	stb	,s
+   0043 20 13         [ 3]   42 	bra	L6
+   0045                      43 L7:
+   0045 BD 00 00      [ 8]   44 	jsr	___Wait_Recal
+   0048 BD 00 00      [ 8]   45 	jsr	___Reset0Ref
+   004B C6 C4         [ 2]   46 	ldb	#-60
+   004D E7 E2         [ 6]   47 	stb	,-s
+   004F 8E 00 24      [ 3]   48 	ldx	#LC0
+   0052 5F            [ 2]   49 	clrb
+   0053 BD 00 00      [ 8]   50 	jsr	_print_str
+   0056 32 61         [ 5]   51 	leas	1,s
+   0058                      52 L6:
+   0058 6A E4         [ 6]   53 	dec	,s
+                             54 	; tst	,s	; optimization 1
+   005A 26 E9         [ 3]   55 	bne	L7
+   005C 32 61         [ 5]   56 	leas	1,s
+   005E 39            [ 5]   57 	rts
+   005F                      58 _disable_controller_2_y:
+   005F 7F 00 00      [ 7]   59 	clr	_Vec_Joy_Mux_2_Y
+   0062 39            [ 5]   60 	rts
+   0063                      61 _disable_controller_2_x:
+   0063 7F 00 00      [ 7]   62 	clr	_Vec_Joy_Mux_2_X
+   0066 39            [ 5]   63 	rts
+   0067                      64 _enable_controller_1_y:
+   0067 C6 03         [ 2]   65 	ldb	#3
+   0069 F7 00 00      [ 5]   66 	stb	_Vec_Joy_Mux_1_Y
+   006C 39            [ 5]   67 	rts
+   006D                      68 _enable_controller_1_x:
+   006D C6 01         [ 2]   69 	ldb	#1
+   006F F7 00 00      [ 5]   70 	stb	_Vec_Joy_Mux_1_X
+   0072 39            [ 5]   71 	rts
+                             72 	.globl _game_loop
+   0073                      73 _game_loop:
+   0073 32 7F         [ 5]   74 	leas	-1,s
+   0075 C6 01         [ 2]   75 	ldb	#1
+   0077 E7 E4         [ 4]   76 	stb	,s
+   0079 20 1D         [ 3]   77 	bra	L18
+   007B                      78 L19:
+   007B BD 00 00      [ 8]   79 	jsr	___Wait_Recal
+   007E BD 00 00      [ 8]   80 	jsr	_move_player
+   0081 BD 00 00      [ 8]   81 	jsr	_move_rocks
+   0084 BD 00 00      [ 8]   82 	jsr	_draw_player
+   0087 BD 00 00      [ 8]   83 	jsr	_draw_rocks
+   008A BD 00 00      [ 8]   84 	jsr	_draw_crabs
+   008D BD 00 00      [ 8]   85 	jsr	_draw_ether
+   0090 BD 00 00      [ 8]   86 	jsr	_animate_ether
+   0093 BD 00 00      [ 8]   87 	jsr	_check_player
+   0096 E7 E4         [ 4]   88 	stb	,s
+   0098                      89 L18:
+   0098 6D E4         [ 6]   90 	tst	,s
+   009A 26 DF         [ 3]   91 	bne	L19
+   009C 32 61         [ 5]   92 	leas	1,s
+   009E 39            [ 5]   93 	rts
+   009F                      94 LC1:
+   009F 47 41 4D 45 20 4F    95 	.ascii "GAME OVER\0"
+        56 45 52 00
+                             96 	.globl _game_over
+   00A9                      97 _game_over:
+   00A9 32 7F         [ 5]   98 	leas	-1,s
+   00AB C6 96         [ 2]   99 	ldb	#-106
+   00AD E7 E4         [ 4]  100 	stb	,s
+   00AF 20 13         [ 3]  101 	bra	L22
+   00B1                     102 L23:
+   00B1 BD 00 00      [ 8]  103 	jsr	___Wait_Recal
+   00B4 BD 00 00      [ 8]  104 	jsr	___Reset0Ref
+   00B7 C6 BA         [ 2]  105 	ldb	#-70
+   00B9 E7 E2         [ 6]  106 	stb	,-s
+   00BB 8E 00 9F      [ 3]  107 	ldx	#LC1
+   00BE 5F            [ 2]  108 	clrb
+   00BF BD 00 00      [ 8]  109 	jsr	_print_str
+   00C2 32 61         [ 5]  110 	leas	1,s
+   00C4                     111 L22:
+   00C4 6A E4         [ 6]  112 	dec	,s
+                            113 	; tst	,s	; optimization 1
+   00C6 26 E9         [ 3]  114 	bne	L23
+   00C8 32 61         [ 5]  115 	leas	1,s
+   00CA 39            [ 5]  116 	rts
+                            117 	.globl _game
+   00CB                     118 _game:
+   00CB BD 00 2E      [ 8]  119 	jsr	_game_init
+   00CE BD 00 73      [ 8]  120 	jsr	_game_loop
+   00D1 BD 00 A9      [ 8]  121 	jsr	_game_over
+   00D4 5F            [ 2]  122 	clrb
+   00D5 39            [ 5]  123 	rts
+ASxxxx Assembler V05.00  (Motorola 6809), page 1.
+Hexidecimal [16-Bits]
+
+Symbol Table
+
+    .__.$$$.       =   2710 L   |     .__.ABS.       =   0000 G
+    .__.CPU.       =   0000 L   |     .__.H$L.       =   0001 L
+  2 L18                0098 R   |   2 L19                007B R
+  2 L22                00C4 R   |   2 L23                00B1 R
+  2 L6                 0058 R   |   2 L7                 0045 R
+  2 LC0                0024 R   |   2 LC1                009F R
+    _Vec_Joy_Mux_1     **** GX  |     _Vec_Joy_Mux_1     **** GX
+    _Vec_Joy_Mux_2     **** GX  |     _Vec_Joy_Mux_2     **** GX
+    __Select_Game      **** GX  |     ___Reset0Ref       **** GX
+    ___Wait_Recal      **** GX  |     _animate_ether     **** GX
+    _check_player      **** GX  |   2 _disable_contr     0063 R
+  2 _disable_contr     005F R   |     _draw_crabs        **** GX
+    _draw_ether        **** GX  |     _draw_player       **** GX
+    _draw_rocks        **** GX  |   2 _enable_contro     006D R
+  2 _enable_contro     0067 R   |   2 _game              00CB GR
+  2 _game_init         002E GR  |   2 _game_loop         0073 GR
+  2 _game_menu         000C R   |   2 _game_options      0000 GR
+  2 _game_over         00A9 GR  |     _init_player       **** GX
+    _move_player       **** GX  |     _move_rocks        **** GX
+    _print_str         **** GX
+
+ASxxxx Assembler V05.00  (Motorola 6809), page 2.
+Hexidecimal [16-Bits]
+
+Area Table
+
+[_CSEG]
+   0 _CODE            size    0   flags C080
+   2 .text            size   D6   flags  100
+[_DSEG]
+   1 _DATA            size    0   flags C0C0
+
